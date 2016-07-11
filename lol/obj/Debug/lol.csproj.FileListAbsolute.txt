@@ -1,0 +1,8 @@
+D:\Epam\EPAM.Summer.Kozlov.05\lol\bin\Debug\lol.exe.config
+D:\Epam\EPAM.Summer.Kozlov.05\lol\bin\Debug\lol.exe
+D:\Epam\EPAM.Summer.Kozlov.05\lol\bin\Debug\lol.pdb
+D:\Epam\EPAM.Summer.Kozlov.05\lol\bin\Debug\Task01.dll
+D:\Epam\EPAM.Summer.Kozlov.05\lol\bin\Debug\Task01.pdb
+D:\Epam\EPAM.Summer.Kozlov.05\lol\obj\Debug\lol.csprojResolveAssemblyReference.cache
+D:\Epam\EPAM.Summer.Kozlov.05\lol\obj\Debug\lol.exe
+D:\Epam\EPAM.Summer.Kozlov.05\lol\obj\Debug\lol.pdb

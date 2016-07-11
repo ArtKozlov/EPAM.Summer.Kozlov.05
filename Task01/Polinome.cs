@@ -1,165 +1,161 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Task01
 {
     public class Polinome
     {
-        private double x;
         private int degree;
-        private List<int> coefficients = new List<int>();
-        public double GetX
-        {
-            get { return x; }
-        }
-        public int GetDegree
+        private readonly double[] coefficients;
+
+        public int Degree
         {
             get { return degree; }
         }
-        public List<int> GetC//
+
+        public double[] Coeff
         {
             get { return coefficients; }
         }
 
-        public Polinome(int deg, double xVal, List<int> c)//
+        public Polinome(params double[] c)
         {
-            if ((deg > 0 && deg < 10) && deg == c.Count)
+            if (c == null)
+                throw new ArgumentNullException();
+
+            if (c.Length != 0)
             {
-                degree = deg;
-                x = xVal;
-                foreach (int n in c)
-                    coefficients.Add(n);
+                coefficients = new double[0];
+                for (int i = 0; i < c.Length; i++)
+                {
+                    Array.Resize(ref coefficients, coefficients.Length + 1);
+                    coefficients[i] = c[i];
+                }
+                degree = coefficients.Length - 1;
             }
-            else
-                throw new Exception("Error input data in overloaded class constructor!");
         }
         /// <summary>
         /// is the sum of two polinomes.
         /// </summary>
         /// <returns>returns a new object of type polinome.</returns>
-        public static Polinome operator +(Polinome firstPolinome, Polinome secondPolinome)//статический метод сложения полиномов
+        public static Polinome operator +(Polinome lhs, Polinome rhs)
         {
-            int degree;
-            double xVal;
-            List<int> lc = new List<int>();
-            xVal = firstPolinome.GetX + secondPolinome.GetX;
-            if (firstPolinome.GetDegree > secondPolinome.GetDegree)
+            double[] lc = new double[0];
+            if (lhs.Degree > rhs.Degree)
             {
-                degree = firstPolinome.GetDegree;
-                for (int i = 0; i < secondPolinome.GetDegree; ++i)
+                for (int i = 0; i <= rhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i] + secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i] + rhs.Coeff[i];
                 }
-                for (int i = secondPolinome.GetDegree; i < firstPolinome.GetDegree; ++i)
+                for (int i = rhs.Degree + 1; i < lhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i];
                 }
             }
             else
             {
-                degree = secondPolinome.GetDegree;
-                for (int i = 0; i < firstPolinome.GetDegree; ++i)
+                for (int i = 0; i <= lhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i] + secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i] + rhs.Coeff[i];
                 }
-                for (int i = firstPolinome.GetDegree; i < secondPolinome.GetDegree; ++i)
+                for (int i = lhs.Degree; i < rhs.Degree; ++i)
                 {
-                    lc.Add(secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = rhs.Coeff[i];
                 }
             }
 
-            return new Polinome(degree, xVal, lc);
+            return new Polinome(lc);
         }
         /// <summary>
         /// is the difference of two polinomes.
         /// </summary>
         /// <returns>returns a new object of type polinome.</returns>
-        public static Polinome operator -(Polinome firstPolinome, Polinome secondPolinome)//статический метод вычитания полиномов
+        public static Polinome operator -(Polinome lhs, Polinome rhs)
         {
-            int degree;
-            double xVal;
-            List<int> lc = new List<int>();
-            xVal = firstPolinome.GetX - secondPolinome.GetX;
-            if (firstPolinome.GetDegree > secondPolinome.GetDegree)
+            double[] lc = new double[0];
+            if (lhs.Degree > rhs.Degree)
             {
-                degree = firstPolinome.GetDegree;
-                for (int i = 0; i < secondPolinome.GetDegree; ++i)
+                for (int i = 0; i <= rhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i] - secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i] - rhs.Coeff[i];
                 }
-                for (int i = secondPolinome.GetDegree; i < firstPolinome.GetDegree; ++i)
+                for (int i = rhs.Degree + 1; i < lhs.Degree; ++i)
                 {
-                    lc.Add(-firstPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = -lhs.Coeff[i];
                 }
             }
             else
             {
-                degree = secondPolinome.GetDegree;
-                for (int i = 0; i < firstPolinome.GetDegree; ++i)
+                for (int i = 0; i <= lhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i] - secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i] - rhs.Coeff[i];
                 }
-                for (int i = firstPolinome.GetDegree; i < secondPolinome.GetDegree; ++i)
+                for (int i = lhs.Degree; i < rhs.Degree; ++i)
                 {
-                    lc.Add(-secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = -rhs.Coeff[i];
                 }
             }
 
-            return new Polinome(degree, xVal, lc);
+            return new Polinome(lc);
         }
         /// <summary>
         /// multiplying two polinomes.
         /// </summary>
         /// <returns>returns a new object of type polinome.</returns>
-        public static Polinome operator *(Polinome firstPolinome, Polinome secondPolinome)//статический метод вычитания полиномов
+        public static Polinome operator *(Polinome lhs, Polinome rhs)
         {
-            int degree;
-            double xVal;
-            List<int> lc = new List<int>();
-            xVal = firstPolinome.GetX * secondPolinome.GetX;
-            if (firstPolinome.GetDegree > secondPolinome.GetDegree)
+            double[] lc = new double[0];
+            if (lhs.Degree > rhs.Degree)
             {
-                degree = firstPolinome.GetDegree;
-                for (int i = 0; i < secondPolinome.GetDegree; ++i)
+                for (int i = 0; i <= rhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i] * secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i] * rhs.Coeff[i];
                 }
-                for (int i = secondPolinome.GetDegree; i < firstPolinome.GetDegree; ++i)
+                for (int i = rhs.Degree + 1; i < lhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i];
                 }
             }
             else
             {
-                degree = secondPolinome.GetDegree;
-                for (int i = 0; i < firstPolinome.GetDegree; ++i)
+                for (int i = 0; i <= lhs.Degree; ++i)
                 {
-                    lc.Add(firstPolinome.GetC[i] * secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = lhs.Coeff[i] * rhs.Coeff[i];
                 }
-                for (int i = firstPolinome.GetDegree; i < secondPolinome.GetDegree; ++i)
+                for (int i = lhs.Degree; i < rhs.Degree; ++i)
                 {
-                    lc.Add(secondPolinome.GetC[i]);
+                    Array.Resize(ref lc, lc.Length + 1);
+                    lc[i] = rhs.Coeff[i];
                 }
             }
 
-            return new Polinome(degree, xVal, lc);
+            return new Polinome(lc);
         }
         /// <summary>
         /// multipling polinome and number.
         /// </summary>
         /// <returns>returns a new object of type polinome.</returns>
-        public static Polinome operator *(Polinome thisPolinome, int number)
+        public static Polinome operator *(Polinome currentPolinome, int number)
         {
-            double xVal = thisPolinome.GetX * number;
-            List<int> lc = thisPolinome.coefficients;
+            double[] lc = currentPolinome.coefficients;
 
-            for (int i = 0; i < thisPolinome.GetDegree; i++)
+            for (int i = 0; i < currentPolinome.Degree; i++)
             {
-                lc.Add(thisPolinome.GetC[i] * number);
+                lc[i] = currentPolinome.Coeff[i] * number;
             }
 
-            return new Polinome(thisPolinome.GetDegree, xVal, lc);
+            return new Polinome(lc);
         }
         /// <summary>
         /// compares two objects of type polinome.
@@ -167,32 +163,25 @@ namespace Task01
         /// <returns>Returns true if the objects are equal, False if the objects are not equal.</returns>
         public bool Equals(Polinome otherPolinom)
         {
-            if (degree != otherPolinom.GetDegree)
-            {
-                return false;
-            }
-            else
-            {
-                for (int i = 0; i < degree; i++)
-                {
-                    if (coefficients[i] != otherPolinom.GetC[i])
-                        return false;
-                }
+            if (ReferenceEquals(this, otherPolinom))
                 return true;
-            }
+            if (ReferenceEquals(null, otherPolinom))
+                return false;
+            
+            return false;
         }
         /// <summary>
         /// compares two objects of type polinome.
         /// </summary>
         /// <returns>Returns true if the objects are equal, False if the objects are not equal.</returns>
-        public static bool operator ==(Polinome firstPolinome, Polinome secondPolinome)
+        public static bool operator ==(Polinome lhs, Polinome rhs)
         {
-                return firstPolinome.Equals(secondPolinome);
+                return lhs.Equals(rhs);
         }
 
-        public static bool operator !=(Polinome firstPolinome, Polinome secondPolinome)
+        public static bool operator !=(Polinome lhs, Polinome rhs)
         {
-                return !(firstPolinome.Equals(secondPolinome));
+                return !(lhs.Equals(rhs));
         }
         /// <summary>
         /// override ToString method of Object.
@@ -200,32 +189,57 @@ namespace Task01
         /// <returns>Returns Polinome in string format.</returns>
         public override string ToString()
         {
+            
             StringBuilder result = new StringBuilder();
-            if (coefficients.Count != 0)
+            if (coefficients.Length != 0)
             {
-                result.Append(coefficients[degree] + "x^" + degree);
-                for (int i = degree - 1; i > 0; i--)
+               // result.Append(coefficients[degree] + "x^" + degree);
+                for (int i = degree; i >= 0; i--)
                 {
-                        result.Append(" + " + coefficients[i] + "x^" + i);
+                    if (coefficients[i] != 0)
+                    { 
+                        if (coefficients[i] > 0)
+                        { 
+                            result.Append(" + ");
+                        }
+                        else
+                        {
+                            result.Append(" - ");
+                        }
+                        if(i != 0)
+                            result.Append(Math.Abs(coefficients[i]) + "x^" + i);
+                        else
+                            result.Append(Math.Abs(coefficients[i]));
+                    }
+
                 }
             }
+            
             return result.ToString();
+        }
+
+
+        /// <summary>
+        /// override GetHashCode method of Object.
+        /// </summary>
+        /// <returns>Returns GetHashCode of Polinome.</returns>
+        public override int GetHashCode()
+        {
+            return ToString().GetHashCode();
         }
         /// <summary>
         /// override Equals method of Object 
         /// </summary>
         /// <returns>Returns true if the objects are equal, False if the objects are not equal.</returns>
-        public override bool Equals(Object currentPolinome)
+        public override bool Equals(Object currentObj)
         {
-            if (currentPolinome == null)
+            if (ReferenceEquals(this, currentObj))
+                return true;
+            if (currentObj == null || GetType() != currentObj.GetType())
             {
                 return false;
             }
-            else
-            {
-                Polinome newPolinome = currentPolinome as Polinome;
-                return Equals(newPolinome);
-            }
+            return Equals((Polinome)currentObj);
 
         }
 
