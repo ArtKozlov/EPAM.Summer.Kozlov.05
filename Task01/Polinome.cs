@@ -174,15 +174,9 @@ namespace Task01
         /// compares two objects of type polinome.
         /// </summary>
         /// <returns>Returns true if the objects are equal, False if the objects are not equal.</returns>
-        public static bool operator ==(Polinome lhs, Polinome rhs)
-        {
-                return lhs.Equals(rhs);
-        }
+        public static bool operator ==(Polinome lhs, Polinome rhs) => lhs.Equals(rhs);
 
-        public static bool operator !=(Polinome lhs, Polinome rhs)
-        {
-                return !(lhs.Equals(rhs));
-        }
+        public static bool operator !=(Polinome lhs, Polinome rhs) => !(lhs.Equals(rhs));
         /// <summary>
         /// override ToString method of Object.
         /// </summary>
@@ -223,10 +217,7 @@ namespace Task01
         /// override GetHashCode method of Object.
         /// </summary>
         /// <returns>Returns GetHashCode of Polinome.</returns>
-        public override int GetHashCode()
-        {
-            return ToString().GetHashCode();
-        }
+        public override int GetHashCode() => ToString().GetHashCode();
         /// <summary>
         /// override Equals method of Object 
         /// </summary>
