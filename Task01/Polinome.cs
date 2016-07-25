@@ -187,7 +187,6 @@ namespace Task01
             StringBuilder result = new StringBuilder();
             if (coefficients.Length != 0)
             {
-               // result.Append(coefficients[degree] + "x^" + degree);
                 for (int i = degree; i >= 0; i--)
                 {
                     if (coefficients[i] != 0)
